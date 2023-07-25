@@ -5,7 +5,7 @@ on:
 
 jobs:
   job1:
-    name: linting
+    name: Linting
     runs-on: ubuntu-latest
     steps:
     - name: Check out repo
@@ -21,8 +21,7 @@ jobs:
       run: | 
         flake8 src/model/
   job2:
-  
-    name: linting
+    name: Unit Testing
     runs-on: ubuntu-latest
     steps:
     - name: Check out repo
@@ -31,6 +30,6 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: '3.8'
-    - name: Install Flake8
+    - name: Execute unit testing script
       run: |
-        python 
+        python tests/test_train.py
