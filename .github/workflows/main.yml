@@ -1,3 +1,5 @@
-    - name: Placeholder
-      run: code checks
-      run: Manually trigger an Azure Machine Learning job
+name: Pull Request Workflow
+
+on: 
+    pull_request
+
