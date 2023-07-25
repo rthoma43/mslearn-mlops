@@ -44,7 +44,7 @@ def split_data(df):
     X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                         test_size=0.30, random_state=0)
     return X_train, X_test, y_train, y_test
-    
+
 
 def train_model(reg_rate, X_train, X_test, y_train, y_test):
     # train model
@@ -66,7 +66,7 @@ def parse_args():
 
     # return args
     return args
-    
+
 
 # run script
 if __name__ == "__main__":
