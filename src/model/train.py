@@ -41,8 +41,8 @@ def split_data(df):
                'TricepsThickness', 'SerumInsulin', 'BMI',
                'DiabetesPedigree', 'Age']].values,
     df['Diabetic'].values
-    X_train, X_test, y_train, y_test = train_test_split(X, y,
-                                                        test_size=0.30, random_state=0)
+    X_train, X_test, y_train, y_test = 
+    train_test_split(X, y,test_size=0.30, random_state=0)
     return X_train, X_test, y_train, y_test
 
 
