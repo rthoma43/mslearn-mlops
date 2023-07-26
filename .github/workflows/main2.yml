@@ -15,10 +15,10 @@ jobs:
       - name: Run Azure ML Experiment Job
         env:
           AZUREML_ENVIRONMENT: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
-          AZUREML_COMPUTE: nc6-cluster
+          AZUREML_COMPUTE: aml-cluster
           AZUREML_EXPERIMENT_NAME: diabetes_model
           AZUREML_DESCRIPTION: Train the diabetes model.
-          TRAINING_DATA: ${{ secrets.DEV_DATA_URI }} # Add your secret name for DEV_DATA_URI
+          TRAINING_DATA: azureml:Diabetes-dev-folder:1
           REG_RATE: 0.1
         run: |
           $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
@@ -38,11 +38,11 @@ jobs:
       - name: Run Azure ML Production Job
         env:
           AZUREML_ENVIRONMENT: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
-          AZUREML_COMPUTE: nc6-cluster
+          AZUREML_COMPUTE: aml-cluster
           AZUREML_EXPERIMENT_NAME: diabetes_model_production
           AZUREML_DESCRIPTION: Train the diabetes model in the production environment.
-          TRAINING_DATA: ${{ secrets.PROD_DATA_URI }} # Add your secret name for PROD_DATA_URI
-          REG_RATE: 0.05 # You can set the desired regularization rate for production
+          TRAINING_DATA: azureml:Diabetes-prod-folder:1
+          REG_RATE: 0.05
         run: |
           $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
           code: model
@@ -50,14 +50,3 @@ jobs:
             python train.py
             --training_data $TRAINING_DATA
             --reg_rate $REG_RATE
-
-          TRAINING_DATA: ${{ secrets.PROD_DATA_URI }} # Add your secret name for PROD_DATA_URI
-          REG_RATE: 0.05 # You can set the desired regularization rate for production
-        run: |
-          $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
-          code: model
-          command: >-
-            python train.py
-            --training_data $TRAINING_DATA
-            --reg_rate $REG_RATE
-
