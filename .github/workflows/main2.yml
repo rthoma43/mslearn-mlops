@@ -1,10 +1,13 @@
-name: placeholder
+name: Train Dev and Prod on Push to Main
 
-on: 
-    pull_request
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  job1:
+  my_first_job:
+    name: My first job
     $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
     code: model
     command: >-
@@ -14,9 +17,32 @@ jobs:
     inputs:
       training_data: 
         type: uri_folder 
-        path: azureml:diabetes-dev-folder:1
+        path: azureml:Diabetes-prod-folder:1
       reg_rate: 0.1
-    environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
-    compute: nc6-cluster
-    experiment_name: diabetes_model
+    environment:
+        name: Development
+        url: https://github.com
+    compute: aml_cluster
+    experiment_name: train_diabetes_model
     description: Train the diabetes model.
+  my_second_job:
+    name: My second job
+    $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+    code: model
+    command: >-
+      python train.py
+      --training_data ${{inputs.training_data}}
+      --reg_rate ${{inputs.reg_rate}}
+    inputs:
+      training_data: 
+        type: uri_folder 
+        path: azureml:Diabetes-prod-folder:1
+      reg_rate: 0.1
+    environment:
+        name: Production
+        url: https://github.com
+    compute: aml_cluster
+    experiment_name: train_diabetes_model
+    description: Train the diabetes model.
+    
+
