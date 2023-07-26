@@ -1,6 +1,7 @@
 name: Train on Prod and Dev
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
