@@ -1,9 +1,7 @@
 name: Azure ML Workflow
 
 on:
-  push:
-    branches:
-      - main
+    pull_request
 
 jobs:
   experiment_job:
