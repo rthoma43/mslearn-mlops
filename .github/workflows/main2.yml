@@ -34,6 +34,7 @@ jobs:
         experiment_name: diabetes_model
         description: Train the diabetes model.
   production:
+    needs: development
     runs-on: ubuntu-latest
     environment: Production
     steps:
