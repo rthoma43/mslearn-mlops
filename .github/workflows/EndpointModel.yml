@@ -20,12 +20,12 @@ jobs:
     - name: Create model
       run: | 
         MODEL_NAME='sklearn-diabetes'
-        az ml model create --name $MODEL_NAME --type "mlflow_model" --path "sklearn-diabetes/model"
+        az ml model create --name $MODEL_NAME --type "mlflow_model" --path "sklearn-diabetes/model" -w mlops-workspace-rt
       
     - name: Create a managed online endpoint
       run: |
-        az ml online-endpoint create --name $ENDPOINT_NAME -f production/create-endpoint.yaml
+        az ml online-endpoint create --name $ENDPOINT_NAME -f production/create-endpoint.yaml -g mlops-challenge -w mlops-workspace-rt
         
     - name: Create the deployment
       run: | 
-        az ml online-deployment create --name sklearn-deployment --endpoint $ENDPOINT_NAME -f production/sklearn-deployment.yaml --all-traffic
+        az ml online-deployment create --name sklearn-deployment --endpoint $ENDPOINT_NAME -f production/sklearn-deployment.yaml --all-traffic -g mlops-challenge -w mlops-workspace-rt
