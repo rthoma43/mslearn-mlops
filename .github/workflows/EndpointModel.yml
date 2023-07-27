@@ -26,8 +26,6 @@ jobs:
       run: |
         az ml online-endpoint create --name $ENDPOINT_NAME -f production/create-endpoint.yaml
         
-    - name: Deploy the latest model to an endpoint
-      env:
-        MODEL_VERSION: ${{ steps.get_latest_version.outputs.latest_version }}
-      run: |
-        az ml model deploy --name myendpoint --model-name Production-Diabetes-Model --model-version $MODEL_VERSION -g mlops-challenge -w mlops-workspace-rt
+    - name: Create the deployment
+      run: | 
+        az ml online-deployment create --name sklearn-deployment --endpoint $ENDPOINT_NAME -f production/sklearn-deployment.yaml --all-traffic
