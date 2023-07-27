@@ -1,10 +1,15 @@
 name: Push trigger a Dev and Prod Azure Machine Learning job 
 
-on: [Push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  train:
+  Experiment-train:
     runs-on: ubuntu-latest
+    environment:
+        name: Development
     steps:
     - name: Check out repo
       uses: actions/checkout@main
@@ -16,3 +21,18 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Trigger Azure Machine Learning job
       run: az ml job create --file src/job.yml --resource-group mlops-challenge --workspace-name mlops-workspace-rt
+  Production-train:
+    runs-on: ubuntu-latest
+    environment:
+        name: Production
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@main
+    - name: Install az ml extension
+      run: az extension add -n ml -y
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+    - name: Trigger Azure Machine Learning job
+      run: az ml job create --file src/job2.yml --resource-group mlops-challenge --workspace-name mlops-workspace-rt
