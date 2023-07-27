@@ -4,8 +4,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  train:
+  DeployModel:
     runs-on: ubuntu-latest
+    environment:
+        name: Development
     steps:
     - name: Check out repo
       uses: actions/checkout@main
