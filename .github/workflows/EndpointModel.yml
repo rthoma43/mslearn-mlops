@@ -7,7 +7,7 @@ jobs:
   DeployModel:
     runs-on: ubuntu-latest
     environment:
-        name: Development
+        name: Production
     steps:
     - name: Check out repo
       uses: actions/checkout@main
@@ -20,7 +20,7 @@ jobs:
         
     - name: Get the latest model version
       run: | 
-        latest_version=$(az ml model list -n "your_model_name" -g "your_resource_group_name" --query '[].version' -o tsv)
+        latest_version=$(az ml model list -n Production-Diabetes-Model -g mlops-challenge --query '[].version' -o tsv)
         echo "Latest model version: $latest_version"
         echo "::set-output name=latest_version::$latest_version"
       
