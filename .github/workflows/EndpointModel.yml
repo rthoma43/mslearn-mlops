@@ -24,7 +24,7 @@ jobs:
       
     - name: Create a managed online endpoint
       run: |
-        az ml online-endpoint create -g mlops-challenge -w mlops-workspace-rt --name myendpoint
+        az ml online-endpoint create --name $ENDPOINT_NAME -f production/create-endpoint.yaml
         
     - name: Deploy the latest model to an endpoint
       env:
