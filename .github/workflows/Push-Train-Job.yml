@@ -20,8 +20,9 @@ jobs:
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Trigger Azure Machine Learning job
-      run: az ml job create --file src/job.yml --resource-group mlops-challenge --workspace-name mlops-workspace-rt
+      run: az ml job create --file src/job.yml --resource-group mlops-challenge --workspace-name mlops-workspace-rt --stream
   Production-train:
+    needs: Experiment-train
     runs-on: ubuntu-latest
     environment:
         name: Production
@@ -35,4 +36,4 @@ jobs:
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Trigger Azure Machine Learning job
-      run: az ml job create --file src/job2.yml --resource-group mlops-challenge --workspace-name mlops-workspace-rt
+      run: az ml job create --file src/job2.yml --resource-group mlops-challenge --workspace-name mlops-workspace-rt --stream
