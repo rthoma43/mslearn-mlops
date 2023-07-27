@@ -1,9 +1,7 @@
 name: Push trigger a Dev and Prod Azure Machine Learning job 
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   Experiment-train:
