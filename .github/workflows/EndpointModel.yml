@@ -15,5 +15,5 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: Trigger Azure Machine Learning job
+    - name: Create a real-time endpoint
       run: az ml online-endpoint create --name Endpoint -f production/endpoint.yaml
