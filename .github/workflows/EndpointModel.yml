@@ -17,13 +17,19 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-        
+      
+    - name: Create a managed online endpoint
+      run: |
+        az ml online-endpoint create -g mlops-challenge -w mlops-workspace-rt --name MyEndpoint --model-name Production-Diabetes-Model:$MODEL_VERSION --query properties.endpoint -o tsv)
+        echo "Model deployed to endpoint: $endpoint_url"
+        echo "::set-output name=endpoint_url::$endpoint_url"
+    
     - name: Get the latest model version
       run: | 
         latest_version=$(az ml model list -n Production-Diabetes-Model -g mlops-challenge -w mlops-workspace-rt --query '[].version' -o tsv)
         echo "Latest model version: $latest_version"
         echo "::set-output name=latest_version::$latest_version"
-      
+        
     - name: Deploy the latest model to an endpoint
       env:
         MODEL_VERSION: ${{ steps.get_latest_version.outputs.latest_version }}
