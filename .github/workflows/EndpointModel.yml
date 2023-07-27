@@ -26,6 +26,4 @@ jobs:
       env:
         MODEL_VERSION: ${{ steps.get_latest_version.outputs.latest_version }}
       run: |
-        # Replace the following command with the appropriate command to deploy the model using the Azure ML CLI
-        az ml endpoint create --resource-group mlops-challenge --name MyEndpoint --model-name Production-Diabetes-Model:$MODEL_VERSION --query -o tsv
-      run: az ml online-endpoint create --name Endpoint -f production/endpoint.yaml
+        az ml online-endpoint create --resource-group mlops-challenge --name MyEndpoint --model-name Production-Diabetes-Model:$MODEL_VERSION --query -o tsv
