@@ -15,5 +15,17 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: Create a real-time endpoint
+        
+    - name: Get the latest model version
+      run: | 
+        latest_version=$(az ml model list -n "your_model_name" -g "your_resource_group_name" --query '[].version' -o tsv)
+        echo "Latest model version: $latest_version"
+        echo "::set-output name=latest_version::$latest_version"
+      
+    - name: Deploy the latest model to an endpoint
+      env:
+        MODEL_VERSION: ${{ steps.get_latest_version.outputs.latest_version }}
+      run: |
+        # Replace the following command with the appropriate command to deploy the model using the Azure ML CLI
+        az ml endpoint create --resource-group mlops-challenge --name MyEndpoint --model-name Production-Diabetes-Model:$MODEL_VERSION --query -o tsv
       run: az ml online-endpoint create --name Endpoint -f production/endpoint.yaml
