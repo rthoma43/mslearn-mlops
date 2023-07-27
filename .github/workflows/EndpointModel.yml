@@ -17,10 +17,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: Create model
-      run: | 
-        MODEL_NAME='sklearn-diabetes'
-        az ml model create --name $MODEL_NAME --type "mlflow_model" --path "sklearn-diabetes/model" -w mlops-workspace-rt
       
     - name: Create a managed online endpoint
       run: |
