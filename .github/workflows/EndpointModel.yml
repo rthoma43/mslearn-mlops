@@ -16,4 +16,4 @@ jobs:
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Trigger Azure Machine Learning job
-      run: az ml online-endpoint create --name $Ee -f endpoints/online/ncd/create-endpoint.yaml
+      run: az ml online-endpoint create --name Endpoint -f production/endpoint.yaml
