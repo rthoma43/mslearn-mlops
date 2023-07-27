@@ -20,5 +20,16 @@ jobs:
     - name: Run linting tests
       run: | 
         flake8 src/model/
-
-
+  job2:
+    name: Unit testing
+    runs-on: ubuntu-latest
+    steps:
+    -name: Check out repo
+      uses: actions/checkout@main
+    -name: Use Python version 3.8
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.8'
+    -name: Run unit testing
+      run: |
+        python tests/
