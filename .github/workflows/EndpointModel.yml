@@ -32,4 +32,4 @@ jobs:
       env:
         MODEL_VERSION: ${{ steps.get_latest_version.outputs.latest_version }}
       run: |
-        az ml model deploy --name myendpoint -m Production-Diabetes-Model:$MODEL_VERSION -g mlops-challenge -w mlops-workspace-rt
+        az ml model deploy --name myendpoint --model-name Production-Diabetes-Model --model-version $MODEL_VERSION -g mlops-challenge -w mlops-workspace-rt
